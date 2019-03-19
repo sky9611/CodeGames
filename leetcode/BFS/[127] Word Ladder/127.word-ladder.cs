@@ -72,13 +72,19 @@ public class Solution {
         List<string> list = wordList as List<string>;
         list.Add(beginWord);
         list.Reverse();
+        foreach(string s in list)
+            Console.Write(s + " ");
+        Console.WriteLine();
+
         for (int i=0;i<list.Count;i++)
         {
             for (int j=0;j<list.Count;j++)
             {
                 if(isNeighbour(list[i],list[j]))
                     am[i,j] = 1;
+                Console.Write(am[i,j] + " ");
             }
+            Console.WriteLine();    
         }
 
         Queue<Tuple<int,int>> queue = new Queue<Tuple<int,int>>();
@@ -91,9 +97,11 @@ public class Solution {
         {
             Tuple<int,int> tuple = queue.Dequeue();
             int index = tuple.Item1;
+            
+            Console.WriteLine(list[index]);
             int distance = tuple.Item2;
             if (list[index]==endWord)
-                return distance;
+                return distance+1;
             else
             {
                 for (int i=1;i<list.Count;i++)
