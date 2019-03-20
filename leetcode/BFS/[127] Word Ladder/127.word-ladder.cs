@@ -64,68 +64,72 @@
  * 
  * 
  */
-public class Solution {
-    public int LadderLength(string beginWord, string endWord, IList<string> wordList) 
+public class Solution
+{
+    public int LadderLength(string beginWord, string endWord, IList<string> wordList)
     {
         if (!wordList.Contains(endWord)) return 0;
-        int[,] am = new int[wordList.Count+1,wordList.Count+1];
+        int[,] am = new int[wordList.Count + 1, wordList.Count + 1];
         List<string> list = wordList as List<string>;
+        list.Remove(beginWord);
+        // int visited = 0;
+        bool[] visited = new bool[wordList.Count + 1];
         list.Add(beginWord);
         list.Reverse();
-        foreach(string s in list)
-            Console.Write(s + " ");
-        Console.WriteLine();
 
-        for (int i=0;i<list.Count;i++)
+        for (int i = 0; i < list.Count; i++)
         {
-            for (int j=0;j<list.Count;j++)
+            for (int j = 0; j < list.Count; j++)
             {
-                if(isNeighbour(list[i],list[j]))
-                    am[i,j] = 1;
-                Console.Write(am[i,j] + " ");
+                if (isNeighbour(list[i], list[j]))
+                    am[i, j] = 1;
             }
-            Console.WriteLine();    
         }
 
-        Queue<Tuple<int,int>> queue = new Queue<Tuple<int,int>>();
-        for (int i=1;i<list.Count;i++)
+        Queue<Tuple<int, int>> queue = new Queue<Tuple<int, int>>();
+        for (int i = 1; i < list.Count; i++)
         {
-            if (am[0,i]==1)
+            if (am[0, i] == 1)
                 queue.Enqueue(new Tuple<int, int>(i, 1));
         }
-        while(queue.Count>0)
+        while (queue.Count > 0)
         {
-            Tuple<int,int> tuple = queue.Dequeue();
+            Tuple<int, int> tuple = queue.Dequeue();
             int index = tuple.Item1;
-            
-            Console.WriteLine(list[index]);
             int distance = tuple.Item2;
-            if (list[index]==endWord)
-                return distance+1;
+            if (list[index] == endWord)
+            {
+                return distance + 1;
+            }
             else
             {
-                for (int i=1;i<list.Count;i++)
+                for (int i = 1; i < list.Count; i++)
                 {
-                    if (am[index,i]==1)
-                        queue.Enqueue(new Tuple<int, int>(i, distance+1));
+                    if (am[index, i] == 1 && !visited[i])
+                    // if (am[index, i] == 1 && (visited >> (i-1) & 1)==0)
+                    {
+                        // visited = visited | (1 << (i-1));
+                        visited[i] = true;
+                        queue.Enqueue(new Tuple<int, int>(i, distance + 1));
+                    }                    
                 }
             }
         }
-        return 0; 
+        return 0;
     }
 
     private bool isNeighbour(string s1, string s2)
     {
         int dist = 0;
-        for(int i=0;i<s1.Length;i++)
+        for (int i = 0; i < s1.Length; i++)
         {
-            dist = s1[i]==s2[i] ? dist : dist+1;
-            if(dist>1)
-                return false;                
+            dist = s1[i] == s2[i] ? dist : dist + 1;
+            if (dist > 1)
+                return false;
         }
-        if(dist==1)
+        if (dist == 1)
             return true;
-        else 
+        else
             return false;
     }
 }
