@@ -76,53 +76,87 @@ public class Solution
 {
     public void RecoverTree(TreeNode root)
     {
+        # region SC=O(n)
+        // Stack<TreeNode> stack = new Stack<TreeNode>();
+        // List<TreeNode> nodeList = new List<TreeNode>();
+        // int a = 0, b = 0;
+        // TreeNode node = root;
+        // while (stack.Count > 0 || node != null)
+        // {
+        //     if (node != null)
+        //     {
+        //         stack.Push(node);
+        //         node = node.left;
+        //     }
+        //     else
+        //     {
+        //         node = stack.Pop();
+        //         nodeList.Add(node);
+        //         node = node.right;
+        //     }
+        // }
+
+        // for (int i = 0; i < nodeList.Count - 1; i++)
+        // {
+        //     if (nodeList[i].val > nodeList[i + 1].val)
+        //     {
+        //         a = i;
+        //         break;
+        //     }
+        // }
+
+        // for (int i = nodeList.Count - 1; i > 0; i--)
+        // {
+        //     if (nodeList[i].val < nodeList[i - 1].val)
+        //     {
+        //         b = i;
+        //         break;
+        //     }
+        // }
+
+        // int tmp = nodeList[a].val;
+        // nodeList[a].val = nodeList[b].val;
+        // nodeList[b].val = tmp;
+        # endregion
+
+        # region SC=O(1)
         Stack<TreeNode> stack = new Stack<TreeNode>();
-        List<TreeNode> nodeList = new List<TreeNode>();
-        int a = 0, b = 0;
-        TreeNode node = root;
-        while (stack.Count > 0 || node != null)
+        TreeNode cur = root;
+        TreeNode prev = null, first = null, second = null;
+
+        while (stack.Count > 0 || cur != null)
         {
-            if (node != null)
+            if (cur != null)
             {
-                stack.Push(node);
-                node = node.left;
+                stack.Push(cur);
+                cur = cur.left;
             }
             else
             {
-                node = stack.Pop();
-                nodeList.Add(node);
-                node = node.right;
+                cur = stack.Pop();
+                if(prev != null && cur != null)
+                {
+                    if(cur.val < prev.val)
+                    {
+                        if (first == null)
+                        {
+                            first = prev;
+                            second = cur;
+                        }
+                        second = cur; 
+                        
+                    }
+                }
+                
+                prev = cur;
+                cur = cur.right;
             }
         }
 
-        for (int i = 0; i < nodeList.Count - 1; i++)
-        {
-            if (nodeList[i].val > nodeList[i + 1].val)
-            {
-                a = i;
-                break;
-            }
-        }
-
-        for (int i = nodeList.Count - 1; i > 0; i--)
-        {
-            if (nodeList[i].val < nodeList[i - 1].val)
-            {
-                b = i;
-                break;
-            }
-        }
-
-        // foreach(var p in nodeList)
-        //     Console.Write(p.val + " ");
-
-        int tmp = nodeList[a].val;
-        nodeList[a].val = nodeList[b].val;
-        nodeList[b].val = tmp;
-
-        // nodeList[a].val = nodeList[a].val ^ nodeList[b].val;
-        // nodeList[b].val = nodeList[a].val ^ nodeList[b].val;
-        // nodeList[a].val = nodeList[b].val ^ nodeList[a].val;
+        int tmp = first.val;
+        first.val = second.val;
+        second.val = tmp;
+        # endregion
     }
 }
 
