@@ -59,16 +59,19 @@
  *     public TreeNode(int x) { val = x; }
  * }
  */
-public class Solution {
-    public bool IsBalanced(TreeNode root) {
+public class Solution
+{
+    public bool IsBalanced(TreeNode root)
+    {
         if (root == null) return true;
         if (Math.Abs(Foo(root.left, 0) - Foo(root.right, 0)) > 1) return false;
-        return IsBalanced(root.left)&&IsBalanced(root.right);
+        return IsBalanced(root.left) && IsBalanced(root.right);
     }
-    
-    private int Foo(TreeNode node, int height){
+
+    private int Foo(TreeNode node, int height)
+    {
         if (node == null) return height;
-        return Math.Max(Foo(node.left, height+1),Foo(node.right, height+1));
+        return Math.Max(Foo(node.left, height + 1), Foo(node.right, height + 1));
     }
 }
 
