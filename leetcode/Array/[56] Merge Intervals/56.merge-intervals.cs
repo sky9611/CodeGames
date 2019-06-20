@@ -42,7 +42,7 @@ public class Solution
         if (intervals.Count() == 0)
             return new int[0][];
 
-        intervals = intervals.OrderBy(x => x[0]).ThenBy(x => x[1]).ToArray();
+        intervals = intervals.OrderBy(x => x[0]).ToArray();
 
         var res = new List<int[]>();
 
