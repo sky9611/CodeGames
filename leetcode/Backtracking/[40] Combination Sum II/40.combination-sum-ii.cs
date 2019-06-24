@@ -53,35 +53,35 @@
  */
 public class Solution
 {
-    public IList<IList<int>> CombinationSum2 (int[] candidates, int target)
+    public IList<IList<int>> CombinationSum2(int[] candidates, int target)
     {
-        var res = new List<IList<int>> ();
-        
-        Dfs (candidates.OrderBy(x => x).ToArray(), target, 0, res, new List<int> (), 0);
+        var res = new List<IList<int>>();
+
+        Dfs(candidates.OrderBy(x => x).ToArray(), target, 0, res, new List<int>(), 0);
 
         return res;
     }
 
-    public void Dfs (int[] candidates, int target, int sum, IList<IList<int>> res, IList<int> tmp, int index)
+    public void Dfs(int[] candidates, int target, int sum, IList<IList<int>> res, IList<int> tmp, int index)
     {
         if (index >= candidates.Count())
             return;
         if (sum == target)
         {
-            res.Add (new List<int> (tmp));
+            res.Add(new List<int>(tmp));
             return;
         }
         int start = tmp.Count() == 0 ? index : index + 1;
-        int pre = start<candidates.Count() ? candidates[start]-1 : 0;
+        int pre = start < candidates.Count() ? candidates[start] - 1 : 0;
         for (int i = start; i < candidates.Count(); i++)
         {
             if (candidates[i] == pre)
                 continue;
             if (sum + candidates[i] <= target)
             {
-                tmp.Add (candidates[i]);
-                Dfs (candidates, target, sum + candidates[i], res, tmp, i);
-                tmp.RemoveAt (tmp.Count () - 1);
+                tmp.Add(candidates[i]);
+                Dfs(candidates, target, sum + candidates[i], res, tmp, i);
+                tmp.RemoveAt(tmp.Count() - 1);
             }
             pre = candidates[i];
         }
