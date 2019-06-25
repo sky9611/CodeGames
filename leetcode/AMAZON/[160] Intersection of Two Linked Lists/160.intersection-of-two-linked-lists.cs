@@ -94,14 +94,18 @@ public class Solution
     public ListNode GetIntersectionNode(ListNode headA, ListNode headB)
     {
         ListNode a = headA;
+        HashSet<ListNode> set = new HashSet<ListNode>();
         ListNode b = headB;
-        while(a != null && b!= null)
+        while(a != null)
         {
-            if (a == b)
-                return a;
-
+            set.Add(a);
             a = a.next;
-            b = b.next;
+        }
+        while(b != null)
+        {
+            if(set.Contains(b))
+                return b;
+            b= b.next;
         }
         return null;
     }
