@@ -58,9 +58,23 @@
  */
 public class Solution
 {
+    private int max;
     public int MaxPathSum(TreeNode root)
     {
+        max = Int32.MinValue;
+        Dfs(root);
+        return max;
+    }
 
+    public int Dfs(TreeNode root)
+    {
+        if (root == null) return Int32.MinValue;
+
+        int lv = Math.Max(0, Dfs(root.left));
+        int rv = Math.Max(0, Dfs(root.right));
+        int res = root.val + lv + rv;
+        max = Math.Max(max, res);
+        return Math.Max(root.val, root.val + Math.Max(lv, rv));
     }
 }
 
