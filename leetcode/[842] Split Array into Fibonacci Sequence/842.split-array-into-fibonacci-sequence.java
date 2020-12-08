@@ -83,7 +83,39 @@
 // @lc code=start
 class Solution {
     public List<Integer> splitIntoFibonacci(String S) {
-        
+        List<Integer> res = new ArrayList<>();
+        backtrack(S.toCharArray(), res, 0);
+        return res;
+    }
+
+    private boolean backtrack(char[] digit, List<Integer> res, int index){
+        //边界条件判断，如果截取完了，并且res长度大于等于3，表示找到了一个组合。
+        if(index == digit.length && res.size() >= 3) return true;
+        for(int i = index; i < digit.length; i++){
+            //两位以上的数字不能以0开头
+            if(digit[index] == '0' && i > index) return false;
+            //截取字符串转化为数字
+            long num = subDigit(digit, index, i+1);
+            //如果截取的数字大于int的最大值，则终止截取
+            if(num > Integer.MAX_VALUE) return false;
+            int size = res.size();
+            //如果截取的数字大于res中前两个数字的和，说明这次截取的太大，直接终止，因为后面越截取越大
+            if(size >= 2 && num > res.get(size - 1) + res.get(size-2)) break;
+            if(size <= 1 || num == res.get(size - 1) + res.get(size-2)){
+                res.add((int)num);
+                if (backtrack(digit, res, i + 1)) return true;
+                res.remove(res.size() - 1);
+            }
+        }
+        return false;
+    }
+
+    private long subDigit(char[] digit, int start, int end) {
+        long res = 0;
+        for (int i = start; i < end; i++) {
+            res = res * 10 + digit[i] - '0';
+        }
+        return res;
     }
 }
 // @lc code=end
