@@ -86,7 +86,23 @@
  */
 class Solution {
     public TreeNode deleteNode(TreeNode root, int key) {
-        
+        if(root == null) return root;
+        if(root.val == key){
+            if(root.left == null) return root.right;
+            if(root.right == null) return root.left;
+            root.val = getMin(root.right).val;
+            root.right = deleteNode(root.right, root.val);
+        } else if (root.val > key){
+            root.left = deleteNode(root.left, key);
+        } else {
+            root.right = deleteNode(root.right, key);
+        }
+        return root;
+    }
+
+    private TreeNode getMin(TreeNode node){
+        while(node.left != null) node = node.left;
+        return node;
     }
 }
 // @lc code=end
