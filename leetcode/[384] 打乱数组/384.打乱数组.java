@@ -1,4 +1,3 @@
-import java.util.Arrays;
 import java.util.Random;
 
 /*
@@ -62,9 +61,15 @@ import java.util.Random;
 class Solution {
 
     int[] origin;
+    int[] temp;
 
     public Solution(int[] nums) {
-        origin = nums;
+        origin = new int[nums.length];
+        temp = new int[nums.length];
+        for(int i = 0; i < nums.length; i++){
+            origin[i] = nums[i];
+            temp[i] = nums[i];
+        }
     }
     
     /** Resets the array to its original configuration and return it. */
@@ -74,14 +79,29 @@ class Solution {
     
     /** Returns a random shuffling of the array. */
     public int[] shuffle() {
-        int[] tmp = Arrays.copyOf(origin, origin.length);
         Random rand = new Random();
-        for(int i = 0; i < origin.length; i++){
+        // // Inside-Out Algorithm
+        // int[] tmp = Arrays.copyOf(origin, origin.length);
+        // for(int i = 0; i < origin.length; i++){
+        //     int k = rand.nextInt(i+1);
+        //     tmp[i] = tmp[k];
+        //     tmp[k] = origin[i];
+        // }
+        // return tmp;
+
+        // Knuth-Durstenfeld Shuffle
+        for(int i = temp.length - 1; i >= 0; i--){
             int k = rand.nextInt(i+1);
-            tmp[i] = tmp[k];
-            tmp[k] = origin[i];
+            swap(temp, i, k);
         }
-        return tmp;
+
+        return temp;
+    }
+
+    private void swap(int[] arr, int i, int j){
+        int tmp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = tmp;
     }
 }
 
