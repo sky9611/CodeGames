@@ -1,0 +1,11 @@
+- 思路一： 
+  - 遍历一遍数组，hashmap储存频率
+  - 遍历hashmap，存入根据频率排序的priorityqueue
+  - 复杂度：
+    - 空间： O(n)
+    - 时间： O(nlogn)
+- 思路二：
+  - 使用lambda(貌似仅限dotnet可行)
+- 思路三：
+  - 基于快排
+  - set()转数组时，由于直接toArray()转结果是Object[]，所有要么用笨办法遍历，要么用stream().mapToInt(Integer::intValue).toArray()
