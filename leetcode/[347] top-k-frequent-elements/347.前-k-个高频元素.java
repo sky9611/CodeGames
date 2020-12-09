@@ -1,6 +1,3 @@
-import java.util.Map;
-import java.util.PriorityQueue;
-
 /*
  * @lc app=leetcode.cn id=347 lang=java
  *
@@ -48,13 +45,12 @@ import java.util.PriorityQueue;
 class Solution {
 
     Map<Integer, Integer> frequenceMap = new HashMap<>();
-    int pi = 0;
 
     public int[] topKFrequent(int[] nums, int k) {
         for(int num : nums)
             frequenceMap.put(num, frequenceMap.getOrDefault(num, 0)+1);
-        // return heapSort(k);
-        return quickSort(k);
+        return heapSort(k);
+        // return quickSort(k);
     }
 
     private int[] heapSort(int k){
@@ -82,7 +78,7 @@ class Solution {
 
     private void quickSort(int[] nums, int lo, int hi, int k){
         if(lo < hi){
-            pi = partition(nums, lo, hi);
+            int pi = partition(nums, lo, hi);
             if(pi == k) return;
             else if(pi < k)
                 quickSort(nums, pi, hi, k);
@@ -92,10 +88,10 @@ class Solution {
     }
 
     private int partition(int[] nums, int lo, int hi){
-        int pivot = nums[hi];
+        int pivot = frequenceMap.get(nums[hi]);
         int i = lo - 1;
         for(int j = lo; j < hi; j++){
-            if(frequenceMap.get(nums[j]) > frequenceMap.get(nums[pivot])){
+            if(frequenceMap.get(nums[j]) >= pivot){
                 i++;
                 int tmp = nums[i];
                 nums[i] = nums[j];
