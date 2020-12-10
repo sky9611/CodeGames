@@ -60,19 +60,7 @@
 // @lc code=start
 class Solution {
     public boolean stoneGame(int[] piles) {
-        int length = piles.length;
-        int i = 0, j = length - 1;
-        int[] points = new int[3];
-        int flag = -1;
-        while(i < length && j >= 0){
-            if(piles[i] > piles[j]){
-                points[1+flag] += piles[i++];
-            } else {
-                points[1+flag] += piles[j--];
-            }
-            flag = -flag;
-        }
-        return points[0] > points[1];
+        return true;
     }
 }
 // @lc code=end
