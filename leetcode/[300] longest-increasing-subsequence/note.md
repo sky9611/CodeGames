@@ -1,0 +1,8 @@
+- 思路一：
+  - __动态规划__
+  - 用dp[i]表示以第i位为结尾的所以子序列中最长的上升子序列
+  - 显然dp[i] = 1 + Max(dp[k], 0 <= k < i && nums[k] < nums[i]>) 
+  - 更新dp的过程中记录dp[i]的最大值即为结果
+- 思路二：
+  - __二分法__
+  - [具体思路](https://leetcode-cn.com/problems/longest-increasing-subsequence/solution/dong-tai-gui-hua-she-ji-fang-fa-zhi-pai-you-xi-jia/)

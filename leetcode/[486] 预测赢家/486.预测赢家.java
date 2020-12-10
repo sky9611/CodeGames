@@ -61,6 +61,7 @@ class Solution {
         //     - 如果甲拿nums[i]，那么变成乙先手面对区间[i+1...j]，这段区间内乙对甲的净胜分为dp[i+1][j]；
         //       那么甲对乙的净胜分就应该是nums[i] - dp[i+1][j]。
         //     - 如果甲拿nums[j]，同理可得甲对乙的净胜分为是nums[j] - dp[i][j-1]。
+        //     - 显然甲的最优解是取两者中的较大值
         int[][] dp = new int[length][length];
         for(int j = 0; j < length; j++){
             dp[j][j] = nums[j];
