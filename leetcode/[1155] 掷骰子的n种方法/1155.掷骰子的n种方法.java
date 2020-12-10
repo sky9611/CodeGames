@@ -72,15 +72,14 @@ class Solution {
         // 所以dp[i][j] = (i-1)个骰子等于j-1的数量 + (i-1)个骰子等于j-2的数量 + ... + (i-1)个骰子等于j-f的数量
         // 　　         = dp[i-1][j-1] + ... + dp[i-1][j-f]
         dp[0][0] = 0;
-        for(int i = 0; i < target + 1; i++)
+        for(int i = 1; i < target + 1; i++)
             dp[1][i] = f >= i ? 1 : 0;
 
         for(int i = 2; i < d + 1; i++){
-            for(int j = 0; j < target + 1; j++){
-                for(int k = 1; k <= f && j - k > 0; k++){
-                    dp[i][j] += dp[i-1][j-k] % mod;
+            for(int j = 1; j < target + 1 && j <= i*f; j++){
+                for(int k = 1; k <= f && j - k >= 0; k++){
+                    dp[i][j] = (dp[i][j] + dp[i-1][j-k]) % mod;
                 }
-                dp[i][j] %= mod;
             }
         }
 
