@@ -90,7 +90,7 @@ class Solution {
     private int partition(int[] nums, int lo, int hi){
         int pivot = frequenceMap.get(nums[hi]);
         int i = lo - 1;
-        for(int j = lo; j < hi; j++){
+        for(int j = lo; j <= hi; j++){
             if(frequenceMap.get(nums[j]) >= pivot){
                 i++;
                 int tmp = nums[i];
@@ -98,10 +98,7 @@ class Solution {
                 nums[j] = tmp;
             }
         }
-        int tmp = nums[i+1];
-        nums[i+1] = nums[hi];
-        nums[hi] = tmp;
-        return i+1;
+        return i;
     }
 }
 // @lc code=end

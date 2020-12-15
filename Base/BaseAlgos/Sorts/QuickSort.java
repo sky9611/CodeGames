@@ -1,6 +1,6 @@
 public class QuickSort{
     public static void main(String[] args){
-        int[] arr = new int[]{2,3,6,9};
+        int[] arr = new int[]{2,96,3,156,489,1256,456,48,4789,456,531,3,156,487,9,3,6,9};
         sort(arr);
         for(int i : arr)
             System.out.print(i + " ");
